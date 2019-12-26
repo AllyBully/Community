@@ -21,6 +21,13 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from community_user
+    where token = #{token,jdbcType=CHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from community_user
     where id = #{id,jdbcType=INTEGER}
