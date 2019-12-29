@@ -18,4 +18,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User selectByToken(String token);
+
+    User selectByAccountId(String accountId);
 }

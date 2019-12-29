@@ -7,4 +7,6 @@ public interface UserService {
     int addUser(User user);
 
     User FindByToken(String token);
+
+    User FindByAccountId(String accountId);
 }

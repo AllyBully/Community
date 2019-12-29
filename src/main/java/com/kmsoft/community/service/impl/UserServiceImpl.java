@@ -21,4 +21,9 @@ public class UserServiceImpl implements UserService {
     public User FindByToken(String token) {
         return userMapper.selectByToken(token);
     }
+
+    @Override
+    public User FindByAccountId(String accountId) {
+        return userMapper.selectByAccountId(accountId);
+    }
 }
