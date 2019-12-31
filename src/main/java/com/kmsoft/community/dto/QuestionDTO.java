@@ -3,7 +3,7 @@ package com.kmsoft.community.dto;
 import com.kmsoft.community.model.User;
 
 public class QuestionDTO {
-    private Integer id;
+    private Long id;
 
     private String title;
 
@@ -25,11 +25,11 @@ public class QuestionDTO {
 
     private User user;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

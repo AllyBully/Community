@@ -3,11 +3,11 @@
 <head>
     <title>Community</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/community.css">
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -24,7 +24,9 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading" th:text="${question.title}"></h4>
+                <h4 class="media-heading">
+                    <a th:href="@{|/question/${question.id}|}" th:text="${question.title}"></a>
+                </h4>
                 <span class="text-desc">
                     by
                     <span th:text="${question.user.name}"></span>
@@ -42,7 +44,8 @@
                     </a>
                 </li>
                 <li>
-                    <a th:if="${pagination.showPrevious}" th:href="@{|/?page=${pagination.page-1}|}" aria-label="Previous">
+                    <a th:if="${pagination.showPrevious}" th:href="@{|/?page=${pagination.page-1}|}"
+                       aria-label="Previous">
                         <span aria-hidden="true">&lt;</span>
                     </a>
                 </li>
@@ -55,7 +58,8 @@
                     </a>
                 </li>
                 <li>
-                    <a th:if="${pagination.showEndPage}" th:href="@{|/?page=${pagination.totalPage}|}" aria-label="Next">
+                    <a th:if="${pagination.showEndPage}" th:href="@{|/?page=${pagination.totalPage}|}"
+                       aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

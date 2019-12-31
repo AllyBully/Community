@@ -1,32 +1,41 @@
 package com.kmsoft.community.mapper;
 
 import com.kmsoft.community.model.Question;
-import org.apache.ibatis.annotations.Mapper;
-
+import com.kmsoft.community.model.QuestionExample;
 import java.util.List;
-import java.util.Map;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
-@Mapper
 public interface QuestionMapper {
-    int deleteByPrimaryKey(Integer id);
+    long countByExample(QuestionExample example);
+
+    int deleteByExample(QuestionExample example);
+
+    int deleteByPrimaryKey(Long id);
 
     int insert(Question record);
 
     int insertSelective(Question record);
 
-    Question selectByPrimaryKey(Integer id);
+    List<Question> selectByExampleWithBLOBsWithRowbounds(QuestionExample example, RowBounds rowBounds);
+
+    List<Question> selectByExampleWithBLOBs(QuestionExample example);
+
+    List<Question> selectByExampleWithRowbounds(QuestionExample example, RowBounds rowBounds);
+
+    List<Question> selectByExample(QuestionExample example);
+
+    Question selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") Question record, @Param("example") QuestionExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") Question record, @Param("example") QuestionExample example);
+
+    int updateByExample(@Param("record") Question record, @Param("example") QuestionExample example);
 
     int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKeyWithBLOBs(Question record);
 
     int updateByPrimaryKey(Question record);
-
-    List<Question> selectByPage(Map<String, Object> paramMap);
-
-    int count();
-
-    List<Question> selectByCreator(Map<String, Object> paramMap);
-
-    int countByCreator(String creator);
 }

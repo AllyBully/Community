@@ -1,10 +1,7 @@
 package com.kmsoft.community.model;
 
-import java.io.Serializable;
-
-public class Question implements Serializable {
-    private static final long serialVersionUID = -6523369620108172698L;
-    private Integer id;
+public class Question {
+    private Long id;
 
     private String title;
 
@@ -24,11 +21,11 @@ public class Question implements Serializable {
 
     private String description;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

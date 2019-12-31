@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -32,6 +34,7 @@ public class AuthorizeController {
 
     @Value("${github.client.secret}")
     private String clientSecret;
+
     @RequestMapping("/callback")
     public String callback(@RequestParam(name="code") String code,
                            @RequestParam(name="state") String state,
@@ -48,18 +51,26 @@ public class AuthorizeController {
         if(null != githubUser && githubUser.getId() != null){
             //登录成功
             //request.getSession().setAttribute("user", githubUser);
-            User user = userService.FindByAccountId(String.valueOf(githubUser.getId()));
-            if(user == null){
-                user = new User();
-                String token = UUID.randomUUID().toString();
-                user.setToken(token);
-                user.setName(githubUser.getName());
+            List<User> userList = userService.FindByAccountId(String.valueOf(githubUser.getId()));
+            //收集用户最新信息
+            User user = new User();
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
+            user.setName(githubUser.getName());
+            user.setGmtModified(System.currentTimeMillis());
+            user.setBio(githubUser.getBio());
+            user.setAvatarUrl(githubUser.getAvatar_url());
+            if(userList.size() == 0){
+                //录入新用户
                 user.setAccountId(String.valueOf(githubUser.getId()));
                 user.setGmtCreate(System.currentTimeMillis());
                 user.setGmtModified(user.getGmtCreate());
-                user.setBio(githubUser.getBio());
-                user.setAvatarUrl(githubUser.getAvatar_url());
                 userService.addUser(user);
+            }else{
+                //更新用户
+                User dbUser = userList.get(0);
+                user.setId(dbUser.getId());
+                userService.updateUser(user);
             }
             response.addCookie(new Cookie("token", user.getToken()));
             return "redirect:/";
@@ -69,5 +80,13 @@ public class AuthorizeController {
         }
     }
 
-
+    @RequestMapping("/logout")
+    public String loginOut(HttpServletRequest request,
+                           HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
+    }
 }

@@ -1,12 +1,7 @@
 package com.kmsoft.community.model;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
-
-    private static final long serialVersionUID = -8595385546261760007L;
-
-    private Integer id;
+public class User {
+    private Long id;
 
     private String accountId;
 
@@ -22,27 +17,11 @@ public class User implements Serializable {
 
     private String avatarUrl;
 
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -84,5 +63,21 @@ public class User implements Serializable {
 
     public void setGmtModified(Long gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

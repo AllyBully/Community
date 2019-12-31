@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Component
 public class SessionIntercptor implements HandlerInterceptor {
@@ -24,9 +25,9 @@ public class SessionIntercptor implements HandlerInterceptor {
             for (Cookie cookie : cookies) {
                 if("token".equals(cookie.getName())){
                     String token = cookie.getValue();
-                    User user = userService.FindByToken(token);
-                    if(user != null){
-                        request.getSession().setAttribute("user", user);
+                    List<User> userList = userService.FindByToken(token);
+                    if(userList.size() != 0){
+                        request.getSession().setAttribute("user", userList.get(0));
                     }
                     break;
                 }
