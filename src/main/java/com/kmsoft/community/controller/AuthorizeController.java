@@ -72,7 +72,9 @@ public class AuthorizeController {
                 user.setId(dbUser.getId());
                 userService.updateUser(user);
             }
-            response.addCookie(new Cookie("token", user.getToken()));
+            Cookie cookie = new Cookie("token", user.getToken());
+            cookie.setMaxAge(7*24*60*60);
+            response.addCookie(cookie);
             return "redirect:/";
         }else{
             //登录失败
